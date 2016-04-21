@@ -1,0 +1,16 @@
+﻿@model SimpleDbMVCExample.ViewModels.DepartmentDetailsViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Department</h2>
+<table>
+    @foreach (var item in Model.Departments)
+    {
+        <tr>
+            <td>@Html.DisplayFor(ModelItem => item.DepartmentName)</td>
+
+        </tr>
+    }
+</table>
+
