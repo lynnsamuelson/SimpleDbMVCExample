@@ -16,48 +16,25 @@ namespace SimpleDbMVCExample.Controllers
         public ActionResult Index()
         {
             EmployeeContext _myEmployeeContext = new EmployeeContext();
-            List<Employee> employees = _myEmployeeContext.Employee.OrderBy(a => a.Name).ToList();
-            //Employee myEmployee = new Employee();
-            //DepartmentContext _myDepartmentContext = new DepartmentContext();
-            //List<Department> departments = _myDepartmentContext.Department.OrderBy(a => a.DepartmentName).ToList();
-            //var query = 
-            //     from Employee in EmployeeContext join Department in 
-            //     //where  Employee.DepartmentId == _myEmployeeContext.Department.DepartmentId
-            //     join meta in _myEmployeeContext.Department on DepartmentId equals meta.DepartmentId
-            //     where Department.DepartmentId == id
-
-                var query = (from emp in _myEmployeeContext.Employee
+            
+                var employeeDetails = (from emp in _myEmployeeContext.Employee
                                        join dept in _myEmployeeContext.Department
                                        on emp.DepartmentId equals dept.DepartmentId
                                        orderby dept.DepartmentName
-                                       select new
+                                       select new EmployeeDetailViewModel
                                        {
-                                           emp.Name,
-                                           emp.Gender,
-                                           DepartmentName = dept.DepartmentName
+                                           Name = emp.Name ,
+                                           DempartmentName = dept.DepartmentName
                                        }).ToList();
 
-             /*var query =
-   from post in database.Posts
-   join meta in database.Post_Metas on post.ID equals meta.Post_ID
-   where post.ID == id
-   select new { Post = post, Meta = meta };*/
 
-            //should just need the _myEmployeeContext
-
-
-            EmployeeDetailsViewModel employeeModel = new EmployeeDetailsViewModel
+            EmployeeDepartmentDetailsViewModel employeeDepartmentDetails = new EmployeeDepartmentDetailsViewModel
             {
-                Employees = employees
+                Employees = employeeDetails
             };
-            return View(employeeModel);
+            return View(employeeDepartmentDetails);
 
         }
-        public ActionResult Details()
-        {
-            EmployeeContext employeeContext = new EmployeeContext();
-            Employee employee = employeeContext.Employee.Where(emp => emp.EmployeeId == 1).FirstOrDefault();
-            return View(employee);
-        }
+       
     }
 }

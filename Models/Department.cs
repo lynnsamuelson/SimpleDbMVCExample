@@ -9,8 +9,6 @@ namespace SimpleDbMVCExample.Models
     {
         public int DepartmentId { get; set; }
         public string DepartmentName { get; set; }
-        public int DepartmentSize { get; set; }
-        public string DepartmentLocation { get; set; }
         public List<Employee> Employees { get; set; }
     }
 }
